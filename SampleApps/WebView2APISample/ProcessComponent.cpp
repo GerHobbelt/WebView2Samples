@@ -115,14 +115,16 @@ void ProcessComponent::CrashRenderProcess()
     UINT exitCode = 1;
     if (processId != 0)
     {
-        HANDLE hBrowserProcess = ::OpenProcess(PROCESS_TERMINATE, false, processId);
-        // Wait for the process to exit by itself
-        DWORD waitResult = ::WaitForSingleObject(hBrowserProcess, timeoutMs);
-        if (waitResult != WAIT_OBJECT_0)
+        wil::unique_process_handle browserProcess{ ::OpenProcess(SYNCHRONIZE | PROCESS_TERMINATE, false, processId) };
+        if (browserProcess)
         {
-            // Force kill the process if it doesn't exit by itself
-            BOOL result = ::TerminateProcess(hBrowserProcess, exitCode);
-            ::CloseHandle(hBrowserProcess);
+            // Wait for the process to exit by itself
+            DWORD waitResult = ::WaitForSingleObject(browserProcess.get(), timeoutMs);
+            if (waitResult != WAIT_OBJECT_0)
+            {
+                // Force kill the process if it doesn't exit by itself
+                ::TerminateProcess(browserProcess.get(), exitCode);
+            }
         }
     }
 }
