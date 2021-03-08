@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:WPFSample"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
+        Title="MainWindow" Height="463" Width="1523">
+
     <DockPanel>
 
         <DockPanel DockPanel.Dock="Top">
@@ -18,10 +18,33 @@
         />
             <TextBox Name="addressBar"/>
         </DockPanel>
-        
-        <wv2:WebView2 Name="webView"
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 
+            <Rectangle Grid.Column="0" Fill="Red"/>
+            -->
+               
+            <wv2:WebView2 Grid.Column="0" Name="webViewA"
                   Source="https://www.microsoft.com"
         />
+               
+
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" ResizeBehavior="CurrentAndNext"/>
+<!--
+            <Rectangle Grid.Column="2" Fill="LightBlue"/>
+            -->
+               
+                <wv2:WebView2 Grid.Column="2" Name="webViewB"
+                  Source="https://www.example.com" DockPanel.Dock="Right"
+        />
+               
+        </Grid>
     </DockPanel>
-    
+
 </Window>

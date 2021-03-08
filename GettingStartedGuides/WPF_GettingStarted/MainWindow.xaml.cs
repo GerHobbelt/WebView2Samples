@@ -25,30 +25,45 @@ namespace WPFSample
         public MainWindow()
         {
             InitializeComponent();
-            webView.NavigationStarting += EnsureHttps;
+            webViewA.NavigationStarting += EnsureHttps;
+            webViewB.NavigationStarting += EnsureHttps;
             InitializeAsync();
 
         }
 
         async void InitializeAsync()
         {
-            await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.WebMessageReceived += UpdateAddressBar;
+            await webViewA.EnsureCoreWebView2Async(null);
+            await webViewB.EnsureCoreWebView2Async(null);
+            webViewA.CoreWebView2.WebMessageReceived += UpdateAddressBar;
+            webViewB.CoreWebView2.WebMessageReceived += UpdateAddressBar;
 
-            await webView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.postMessage(window.document.URL);");
-            await webView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.addEventListener(\'message\', event => alert(event.data));");
+            await webViewA.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.postMessage(window.document.URL);");
+            await webViewA.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.addEventListener(\'message\', event => alert(event.data));");
 
+            await webViewB.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.postMessage(window.document.URL);");
+            await webViewB.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.chrome.webview.addEventListener(\'message\', event => alert(event.data));");
+
+            A_or_B = false;
+            ButtonGo.Content = (A_or_B ? "Go [B]" : "Go [A]");
         }
+
+        private bool A_or_B = false;
 
         void UpdateAddressBar(object sender, CoreWebView2WebMessageReceivedEventArgs args)
         {
+            Microsoft.Web.WebView2.Core.CoreWebView2 webView = sender as Microsoft.Web.WebView2.Core.CoreWebView2;
             String uri = args.TryGetWebMessageAsString();
             addressBar.Text = uri;
-            webView.CoreWebView2.PostWebMessageAsString(uri);
+            //Microsoft.Web.WebView2.Wpf.WebView2 webView = (A_or_B ? webViewB : webViewA);
+            webView.PostWebMessageAsString(uri);
+            //A_or_B = !A_or_B;
+            //ButtonGo.Content = (A_or_B ? "Go [B]" : "Go [A]");
         }
 
         void EnsureHttps(object sender, CoreWebView2NavigationStartingEventArgs args)
         {
+            Microsoft.Web.WebView2.Wpf.WebView2 webView = sender as Microsoft.Web.WebView2.Wpf.WebView2;
             String uri = args.Uri;
             if (!uri.StartsWith("https://"))
             {
@@ -59,13 +74,14 @@ namespace WPFSample
 
         private void ButtonGo_Click(object sender, RoutedEventArgs e)
         {
+            Microsoft.Web.WebView2.Wpf.WebView2 webView = (A_or_B ? webViewB : webViewA);
             if (webView != null && webView.CoreWebView2 != null)
             {
                 webView.CoreWebView2.Navigate(addressBar.Text);
+                A_or_B = !A_or_B;
+                ButtonGo.Content = (A_or_B ? "Go [B]" : "Go [A]");
             }
         }
-
     }
-
 }
 

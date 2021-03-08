@@ -11,4 +11,6 @@ urlFragment: webview2-wpf-getting-started
 
 This sample relates to the [Getting started with WebView2 in WPF](https://docs.microsoft.com/microsoft-edge/webview2/gettingstarted/wpf) doc.
 
+EDIT: this sample shows TWO independent webviews, side by side. The URL entered in the addressbar at top is sent to the A or B webview, alternating between A and B as a target.
+
 ![sample snapshot](https://raw.githubusercontent.com/MicrosoftDocs/edge-developer/master/microsoft-edge/webview2/gettingstarted/media/wpf-gettingstarted-app.png)

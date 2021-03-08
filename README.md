@@ -12,6 +12,13 @@ In the ``Sample Apps`` folder you will find:
 
 Please leave feedback in our [our feedback repo](https://aka.ms/webviewfeedback)!
 
+EDIT: tests performed:
+
+- `GettingStartedGuides/WPF_GettingStarted` has been modified to show TWO WebView2 panels, side by side. Works.
+- the other GettingStartedGuides b0rked on my dev box with various errors.
+
+
+
 ## Win32 C/C++
 
 #### Getting Started
