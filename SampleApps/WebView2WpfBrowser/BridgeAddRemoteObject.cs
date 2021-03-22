@@ -11,7 +11,6 @@ namespace WebView2WpfBrowser
 {
     // BridgeAddRemoteObject is a .NET object that implements IDispatch and works with AddRemoteObject.
     // See the AddRemoteObjectCmdExecute method that demonstrates how to use it from JavaScript.
-    [ClassInterface(ClassInterfaceType.AutoDual)]
     [ComVisible(true)]
     public class AnotherRemoteObject
     {
@@ -20,7 +19,6 @@ namespace WebView2WpfBrowser
         public string Prop { get; set; } = "AnotherRemoteObject.Prop";
     }
 
-    [ClassInterface(ClassInterfaceType.AutoDual)]
     [ComVisible(true)]
     public class BridgeAddRemoteObject
     {

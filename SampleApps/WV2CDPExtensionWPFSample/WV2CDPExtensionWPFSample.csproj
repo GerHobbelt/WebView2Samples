@@ -3,7 +3,7 @@
     <Platforms>AnyCPU</Platforms>
     <OutputType>WinExe</OutputType>
     <AssemblyName>WV2CDPExtensionWPFSample</AssemblyName>
-    <TargetFrameworks>netcoreapp3.0;net462</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net462</TargetFrameworks>
     <Product>WebView2 CDP Extension WPF Sample App</Product>
     <Copyright>Copyright ©2020</Copyright>
     <UseWPF>true</UseWPF>
@@ -17,8 +17,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.774.44" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.824-prerelease" />
     <PackageReference Include="Microsoft.Web.WebView2.DevToolsProtocolExtension" Version="1.0.824" />
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
   </ItemGroup>
 </Project>
