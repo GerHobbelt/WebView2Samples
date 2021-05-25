@@ -7,6 +7,7 @@
 #include <wrl.h>
 #include <wil/com.h>
 // include WebView2 header
+// HINT: Follow the steps/course at https://docs.microsoft.com/en-us/microsoft-edge/webview2/get-started/win32
 
 using namespace Microsoft::WRL;
 
