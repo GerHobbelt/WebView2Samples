@@ -11,6 +11,12 @@ namespace WebView2WpfBrowser
 {
     // BridgeAddRemoteObject is a .NET object that implements IDispatch and works with AddRemoteObject.
     // See the AddRemoteObjectCmdExecute method that demonstrates how to use it from JavaScript.
+#pragma warning disable CS0618
+    // The.NET version of CoreWebView2.AddHostObjectToScript currently relies on the host object
+    // implementing IDispatch and so uses the deprecated ClassInterfaceType.AutoDual feature of.NET.
+    // This may change in the future, please see https://github.com/MicrosoftEdge/WebView2Feedback/issues/517  for more information
+   [ClassInterface(ClassInterfaceType.AutoDual)]
+#pragma warning restore CS0618
     [ComVisible(true)]
     public class AnotherRemoteObject
     {
@@ -19,6 +25,9 @@ namespace WebView2WpfBrowser
         public string Prop { get; set; } = "AnotherRemoteObject.Prop";
     }
 
+#pragma warning disable CS0618
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+#pragma warning restore CS0618
     [ComVisible(true)]
     public class BridgeAddRemoteObject
     {
